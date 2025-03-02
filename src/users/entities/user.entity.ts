@@ -3,10 +3,13 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
   Timestamp,
   UpdateDateColumn,
 } from 'typeorm';
+import { CategoryEntity } from '../../categories/entities/category.entity';
+import { ProductEntity } from 'src/products/entities/product.entity';
 
 @Entity('users')
 export class UserEntity {
@@ -25,4 +28,10 @@ export class UserEntity {
   createdAt: Timestamp;
   @UpdateDateColumn()
   updatedAt: Timestamp;
+
+  @OneToMany(() => CategoryEntity, (cat) => cat.addedBy)
+  categories: CategoryEntity[];
+
+  @OneToMany(() => ProductEntity, (prod) => prod.addedBy)
+  products: ProductEntity[];
 }

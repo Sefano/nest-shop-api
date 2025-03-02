@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserEntity } from './entities/user.entity';
 import { Repository } from 'typeorm';
@@ -58,6 +62,16 @@ export class UsersService {
     );
   }
 
+  async findAll() {
+    return await this.usersRepository.find();
+  }
+  async findOne(id: number) {
+    const user = await this.usersRepository.findOneBy({ id });
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+    return user;
+  }
   async findUserByEmail(email: string) {
     return await this.usersRepository.findOneBy({ email });
   }
