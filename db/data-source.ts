@@ -3,6 +3,7 @@ import { config } from 'dotenv';
 import { UserEntity } from 'src/users/entities/user.entity';
 import { CategoryEntity } from 'src/categories/entities/category.entity';
 import { ProductEntity } from 'src/products/entities/product.entity';
+import { ReviewEntity } from 'src/reviews/entities/review.entity';
 
 config();
 export const dataSourceOptions: DataSourceOptions = {
@@ -12,7 +13,7 @@ export const dataSourceOptions: DataSourceOptions = {
   username: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
-  entities: [UserEntity, CategoryEntity, ProductEntity],
+  entities: [UserEntity, CategoryEntity, ProductEntity, ReviewEntity],
   migrations: ['dist/db/migrations/*{.ts,.js}'],
   logging: false,
   synchronize: false,
